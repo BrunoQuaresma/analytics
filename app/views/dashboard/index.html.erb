@@ -1,0 +1,57 @@
+<div class="container pt-3">
+  <form method="GET" class="mb-3">
+    <div class="input-group">
+      <span class="input-group-addon">http://</span>
+      <input value="<%= params[:json_path] %>" type="text" class="form-control" name="json_path" placeholder="mysite.com/json-path">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="submit">Load!</button>
+      </span>
+    </div>
+  </form>
+
+  <% if params[:json_path] %>
+    <div class="mb-4">
+      <strong>JSON data</strong>
+      <br>
+      <code>
+        <%= @json_data %>
+      </code>
+    </div>
+
+    <div class="mb-4">
+      <strong>JSON grouped data</strong>
+      <br>
+      <code>
+        <%= @json_data_grouped %>
+      </code>
+    </div>
+
+    <div class="mb-4">
+      <%= line_chart @json_data_grouped %>
+    </div>
+
+    <table class="table table-bordered mb-4">
+      <thead>
+        <tr>
+          <% @json_data_keys.each do |key| %>
+            <th>
+              <%= key %>
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @json_data.each do |data| %>
+          <tr>
+            <% @json_data_keys.each do |key| %>
+              <td>
+                <%= data[key] %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
